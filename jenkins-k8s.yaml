@@ -1,3 +1,25 @@
+# 이것까지 Git에 넣었어야 '그냥' 됩니다!
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: jenkins-admin
+  namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: jenkins-admin-binding
+subjects:
+- kind: ServiceAccount
+  name: jenkins-admin
+  namespace: default
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io
+---
+# 이 밑에 원래 있던 Deployment와 Service가 오는 거죠!
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
